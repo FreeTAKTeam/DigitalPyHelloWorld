@@ -9,7 +9,6 @@ description = "A Hello World Application For DigitalPy"
 DigitalPy = "^0.3.13.7"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^7.4.3"
 pylint = "^3.0.2"
 
 [tool.pytest.ini_options]
