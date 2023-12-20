@@ -1,8 +1,9 @@
 from digitalpy.core.domain.node import Node
 
+
 class HelloClient(Node):
-    def __init__(self, node_type = "hello_client", oid=None) -> None:
-        super().__init__(node_type, oid=oid)
+    def __init__(self, node_type="hello_client", oid=None) -> None:
+        super().__init__(node_type, oid=oid)  # type: ignore
         self._name: str = ""
 
     @property
@@ -13,7 +14,7 @@ class HelloClient(Node):
             str: the name of the client
         """
         return self._name
-    
+
     @name.setter
     def name(self, name: str):
         """set the name of the client
@@ -26,7 +27,7 @@ class HelloClient(Node):
         """
         if not isinstance(name, str):
             raise TypeError("'name' must be a string")
-        
+
         self._name = name
 
     def __str__(self) -> str:

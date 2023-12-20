@@ -8,6 +8,7 @@ from digitalpy.core.network.domain.network_client import NetworkClient
 
 from .domain.model.hello_client import HelloClient
 from .controller.connection_controller import ConnectionController
+from .controller.hello_controller import HelloController
 
 from .configuration.hello_world_constants import (
     ACTION_MAPPING_PATH,
@@ -52,7 +53,7 @@ class HelloWorld(DefaultFacade):
                 manifest_path=str(MANIFEST_PATH),
             )
         self.connection_controller = ConnectionController(request, response, action_mapper, configuration)
-        
+        self.hello_controller = HelloController(request, response, sync_action_mapper, configuration)
     def initialize(self, request, response):
         self.connection_controller.initialize(request, response)
         return super().initialize(request, response)
@@ -72,13 +73,7 @@ class HelloWorld(DefaultFacade):
             self.logger.fatal(str(e))
 
     @DefaultFacade.public
-    def new_client(self, *args, **kwargs):
-        """This method is used to handle a new client.
+    def client_message(self, *args, **kwargs):
+        """This method is used to receive messages sent by client.
         """
-        self.connection_controller.new_client(*args, **kwargs)
-
-    @DefaultFacade.public
-    def client_message(self, message: bytes, client: HelloClient):
-        """This method is used to receive name updates sent by the client.
-        """
-        self.response.set_value("message", message)
+        self.hello_controller.client_message(*args, **kwargs)
