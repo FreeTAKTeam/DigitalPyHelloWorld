@@ -4,7 +4,6 @@ readme = "README.md"
 name = "DigitalPyHelloWorld"
 version = "0.0.1"
 description = "A Hello World Application For DigitalPy"
-readme = "README.md"
 
 [tool.poetry.dependencies]
 DigitalPy = "^0.3.13.7"
