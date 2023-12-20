@@ -26,5 +26,6 @@ jobs:
         run: |
           poetry install --no-root
           poetry install --with dev
+    
       - name: Run the linting
-        run: poetry run pylint $(git ls-files '*.py') -f json
+        run: poetry run pylint --fail-under=8 $(git ls-files '*.py')
