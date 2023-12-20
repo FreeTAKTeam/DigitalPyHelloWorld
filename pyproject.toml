@@ -5,7 +5,7 @@ description = "A Hello World Application For DigitalPy"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^0.3.13.7"
+DigitalPy = "^0.3.13.7"
 
 [build-system]
 requires = ["poetry-core"]
