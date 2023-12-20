@@ -28,4 +28,4 @@ jobs:
           poetry install --with dev
     
       - name: Run the linting
-        run: poetry run pylint --fail-under=8 $(git ls-files '*.py')
+        run: poetry run pylint --fail-under=9 $(git ls-files '*.py')
