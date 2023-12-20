@@ -24,7 +24,7 @@ jobs:
           key: venv-${{ hashFiles('poetry.lock') }}
       - name: Install the project dependencies
         run: |
-          poetry install
+          poetry install --no-root
           pip install pylint
       - name: Run the linting
         run: pylint $(git ls-files '*.py') -f json
