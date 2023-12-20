@@ -27,4 +27,4 @@ jobs:
           poetry install
           pip install pylint
       - name: Run the linting
-        run: pylint -f json
+        run: pylint $(git ls-files '*.py') -f json
