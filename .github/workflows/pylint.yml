@@ -25,6 +25,6 @@ jobs:
       - name: Install the project dependencies
         run: |
           poetry install --no-root
-          pip install pylint
+          poetry install --with dev
       - name: Run the linting
-        run: pylint $(git ls-files '*.py') -f json
+        run: poetry run pylint $(git ls-files '*.py') -f json

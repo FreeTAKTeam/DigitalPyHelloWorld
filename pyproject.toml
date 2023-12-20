@@ -8,6 +8,15 @@ description = "A Hello World Application For DigitalPy"
 [tool.poetry.dependencies]
 DigitalPy = "^0.3.13.7"
 
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.3"
+pylint = "^3.0.2"
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "."
+]
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
