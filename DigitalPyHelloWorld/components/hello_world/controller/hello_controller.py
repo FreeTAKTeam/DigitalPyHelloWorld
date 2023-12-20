@@ -1,3 +1,5 @@
+"""This file contains the HelloController class. This class is used to say hello to the world.
+It performs simple operations based on input data and sends a response back to the service."""
 from typing import TYPE_CHECKING
 
 from digitalpy.core.main.controller import Controller
@@ -11,16 +13,20 @@ if TYPE_CHECKING:
 
 
 class HelloController(Controller):
-    """HelloController is a DigitalPyController that is used to say hello to the world. By adding logic
-    to the hello service"""
+    """HelloController is a DigitalPyController that is used to say hello to the world. 
+    By adding logic to the hello service"""
 
-    def __init__(self, request: 'Request', response: 'Response', sync_action_mapper: 'ActionMapper', configuration: 'Configuration'):
+    def __init__(self, request: 'Request',
+                 response: 'Response',
+                 sync_action_mapper: 'ActionMapper',
+                 configuration: 'Configuration'):
         super().__init__(request, response, sync_action_mapper, configuration)
         self.hello_builder = HelloMessageBuilder(
             request, response, sync_action_mapper, configuration)
 
     def initialize(self, request: 'Request', response: 'Response'):
-        """This function is used to initialize the controller. It is intiated by the service manager."""
+        """This function is used to initialize the controller. 
+        It is intiated by the service manager."""
         self.hello_builder.initialize(request, response)
         return super().initialize(request, response)
 

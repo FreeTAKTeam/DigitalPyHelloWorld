@@ -1,7 +1,12 @@
+"""HelloClient is a DigitalPyNode that is used to manipulate Hello Clients."""
 from digitalpy.core.domain.node import Node
 
 
-class HelloClient(Node):
+# TODO: fix this pylint error
+class HelloClient(Node):  # pylint: disable=abstract-method
+    """HelloClient is a DigitalPyNode that is used to manipulate Hello Clients.
+    """
+
     def __init__(self, node_type="hello_client", oid=None) -> None:
         super().__init__(node_type, oid=oid)  # type: ignore
         self._name: str = ""

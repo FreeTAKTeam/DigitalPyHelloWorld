@@ -1,7 +1,11 @@
+"""This module contains the HelloMessage class. It is a simple example of a DigitalPyNode."""
 from digitalpy.core.domain.node import Node
 
 
-class HelloMessage(Node):
+# TODO: fix this pylint error
+class HelloMessage(Node):  # pylint: disable=abstract-method
+    """HelloMessage is a DigitalPyNode that is used to manipulate Hello Messages."""
+
     def __init__(self, node_type="hello_message", oid=None) -> None:
         super().__init__(node_type, oid=oid)  # type: ignore
         self._message: str = ""

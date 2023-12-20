@@ -1,14 +1,13 @@
 """This is Hello World component controller responsible for handling the connections"""
 from typing import TYPE_CHECKING
 
+from digitalpy.core.main.controller import Controller
+from digitalpy.core.network.domain.network_client import NetworkClient
 if TYPE_CHECKING:
     from digitalpy.core.digipy_configuration.configuration import Configuration
     from digitalpy.core.zmanager.action_mapper import ActionMapper
     from digitalpy.core.zmanager.request import Request
     from digitalpy.core.zmanager.response import Response
-
-from digitalpy.core.main.controller import Controller
-from digitalpy.core.network.domain.network_client import NetworkClient
 
 
 class ConnectionController(Controller):
@@ -16,7 +15,10 @@ class ConnectionController(Controller):
     and disconnections of clients.
     """
 
-    def __init__(self, request: 'Request', response: 'Response', sync_action_mapper: 'ActionMapper', configuration: 'Configuration'):
+    def __init__(self, request: 'Request',
+                 response: 'Response',
+                 sync_action_mapper: 'ActionMapper',
+                 configuration: 'Configuration'):
         super().__init__(request, response, sync_action_mapper, configuration)
 
     def initialize(self, request: 'Request', response: 'Response'):

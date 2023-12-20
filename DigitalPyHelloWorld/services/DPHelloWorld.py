@@ -2,7 +2,8 @@
 import os
 import pathlib
 from digitalpy.core.main.DigitalPy import DigitalPy
-from digitalpy.core.component_management.impl.component_registration_handler import ComponentRegistrationHandler
+from digitalpy.core.component_management.impl.component_registration_handler \
+    import ComponentRegistrationHandler
 
 
 class DPHelloWorld(DigitalPy):
