@@ -1,7 +1,6 @@
-[authors]
-name = "FreeTAKTeam"
-
 [tool.poetry]
+authors = ["FreeTAKTeam <FreeTakTeam@gmail.com>"]
+readme = "README.md"
 name = "DigitalPyHelloWorld"
 version = "0.0.1"
 description = "A Hello World Application For DigitalPy"
