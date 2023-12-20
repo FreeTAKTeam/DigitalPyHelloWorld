@@ -11,6 +11,7 @@ DigitalPy = "^0.3.13.7"
 
 [tool.poetry.group.dev.dependencies]
 pylint = "^3.0.2"
+DigitalPy = { git = "https://github.com/FreeTAKTeam/DigitalPy.git", branch="service_manager" }
 
 [tool.pytest.ini_options]
 pythonpath = [
