@@ -6,6 +6,7 @@ version = "0.0.1"
 description = "A Hello World Application For DigitalPy"
 
 [tool.poetry.dependencies]
+python = "^3.10"
 DigitalPy = "^0.3.13.7"
 
 [tool.poetry.group.dev.dependencies]
