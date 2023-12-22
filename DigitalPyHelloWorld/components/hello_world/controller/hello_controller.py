@@ -7,9 +7,10 @@ from ..domain.builder.hello_message_builder import HelloMessageBuilder
 
 if TYPE_CHECKING:
     from digitalpy.core.digipy_configuration.configuration import Configuration
-    from digitalpy.core.zmanager.action_mapper import ActionMapper
+    from digitalpy.core.zmanager.impl.default_action_mapper import DefaultActionMapper
     from digitalpy.core.zmanager.request import Request
     from digitalpy.core.zmanager.response import Response
+    from digitalpy.core.domain.domain.network_client import NetworkClient
 
 
 class HelloController(Controller):
@@ -18,7 +19,7 @@ class HelloController(Controller):
 
     def __init__(self, request: 'Request',
                  response: 'Response',
-                 sync_action_mapper: 'ActionMapper',
+                 sync_action_mapper: 'DefaultActionMapper',
                  configuration: 'Configuration'):
         super().__init__(request, response, sync_action_mapper, configuration)
         self.hello_builder = HelloMessageBuilder(
@@ -30,11 +31,15 @@ class HelloController(Controller):
         self.hello_builder.initialize(request, response)
         return super().initialize(request, response)
 
-    def client_message(self, data: str, *args, **kwargs):  # pylint: disable=unused-argument
+    def client_message(self, client: 'NetworkClient', data: bytes, config_loader, *args, **kwargs):  # pylint: disable=unused-argument
         """This function is used to handle inbound messages from a service and send a
          response back to the service."""
 
-        self.hello_builder.build_empty_object(self.configuration)
-        self.hello_builder.add_object_data(data)
+        self.hello_builder.build_empty_object(config_loader)
+        self.hello_builder.add_object_data(str(data))
+        msg = self.hello_builder.get_result()
 
+        # list type as only lists are supported for this parameter
+        self.response.set_value("message", [msg])
+        self.response.set_value("recipients", [str(client.get_oid())])
         self.response.set_action("publish")

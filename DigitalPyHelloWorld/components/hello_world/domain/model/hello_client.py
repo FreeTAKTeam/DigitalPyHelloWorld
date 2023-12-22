@@ -7,8 +7,8 @@ class HelloClient(Node):  # pylint: disable=abstract-method
     """HelloClient is a DigitalPyNode that is used to manipulate Hello Clients.
     """
 
-    def __init__(self, node_type="hello_client", oid=None) -> None:
-        super().__init__(node_type, oid=oid)  # type: ignore
+    def __init__(self, model_configuration, model, oid=None, node_type="hello_client") -> None:
+        super().__init__(node_type, model_configuration=model_configuration, model=model, oid=oid)  # type: ignore
         self._name: str = ""
 
     @property

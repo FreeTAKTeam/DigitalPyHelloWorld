@@ -13,7 +13,7 @@ class HelloMessageBuilder(Builder):
 
     def build_empty_object(self, config_loader, *args, **kwargs):  # pylint: disable=unused-argument
         """Builds a HelloMessage object"""
-        self.request.set_value("object_class_name", "MissionChangeRecord")
+        self.request.set_value("object_class_name", "HelloMessage")
 
         configuration = config_loader.find_configuration(SIMPLE_HELLO_MESSAGE)
 
@@ -22,7 +22,7 @@ class HelloMessageBuilder(Builder):
 
     def add_object_data(self, mapped_object: str):
         """adds the data from the mapped object to the HelloMessage object """
-        self.result.message = mapped_object
+        self.result.text = mapped_object
 
     def get_result(self):
         """gets the result of the builder"""

@@ -6,33 +6,33 @@ from digitalpy.core.domain.node import Node
 class HelloMessage(Node):  # pylint: disable=abstract-method
     """HelloMessage is a DigitalPyNode that is used to manipulate Hello Messages."""
 
-    def __init__(self, node_type="hello_message", oid=None) -> None:
-        super().__init__(node_type, oid=oid)  # type: ignore
-        self._message: str = ""
+    def __init__(self, model_configuration, model, oid=None, node_type="hello_message") -> None:
+        super().__init__(node_type, model_configuration=model_configuration, model=model, oid=oid)  # type: ignore
+        self._text: str = ""
 
     @property
-    def message(self) -> str:
-        """get the message
+    def text(self) -> str:
+        """get the text
 
         Returns:
-            str: the message
+            str: the text
         """
-        return self._message
+        return self._text
 
-    @message.setter
-    def message(self, message: str):
-        """set the message
+    @text.setter
+    def text(self, text: str):
+        """set the text
 
         Args:
-            message (str): the message
+            text (str): the text
 
         Raises:
-            TypeError: if message is not a string
+            TypeError: if text is not a string
         """
-        if not isinstance(message, str):
-            raise TypeError("'message' must be a string")
+        if not isinstance(text, str):
+            raise TypeError("'text' must be a string")
 
-        self._message = message
+        self._text = text
 
     def __str__(self) -> str:
-        return f"HelloMessage(message={self.message})"
+        return f"HelloMessage(text={self.text})"
