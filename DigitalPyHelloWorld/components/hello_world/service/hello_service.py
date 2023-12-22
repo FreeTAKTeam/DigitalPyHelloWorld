@@ -9,7 +9,6 @@ from digitalpy.core.service_management.digitalpy_service import DigitalPyService
 from digitalpy.core.service_management.domain.service_status import ServiceStatus
 from digitalpy.core.network.network_interface import NetworkInterface
 from digitalpy.core.zmanager.request import Request
-from digitalpy.core.zmanager.response import Response
 from digitalpy.core.main.impl.default_factory import DefaultFactory
 from digitalpy.core.telemetry.tracing_provider import TracingProvider
 
