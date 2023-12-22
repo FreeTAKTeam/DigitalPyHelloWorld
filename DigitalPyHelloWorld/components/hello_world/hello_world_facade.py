@@ -61,6 +61,7 @@ class HelloWorld(DefaultFacade):
 
     def initialize(self, request, response):
         self.connection_controller.initialize(request, response)
+        self.hello_controller.initialize(request, response)
         return super().initialize(request, response)
 
     def execute(self, method=None):

@@ -9,6 +9,7 @@ from digitalpy.core.service_management.digitalpy_service import DigitalPyService
 from digitalpy.core.service_management.domain.service_status import ServiceStatus
 from digitalpy.core.network.network_interface import NetworkInterface
 from digitalpy.core.zmanager.request import Request
+from digitalpy.core.zmanager.response import Response
 from digitalpy.core.main.impl.default_factory import DefaultFactory
 from digitalpy.core.telemetry.tracing_provider import TracingProvider
 
@@ -43,15 +44,24 @@ class HelloService(DigitalPyService):
         """This function is used to handle inbound messages from other services. 
         It is intiated by the event loop.
         """
-        if message.get_value("data"):
+
+        # TODO: discuss this with giu and see if we should move the to the action mapping system?
+        if message.get_value("action") == "connection":
+            self.handle_connection(message.get_value("client"), message)
+
+        elif message.get_value("action") == "disconnection":
+            self.handle_disconnection(message.get_value("client"), message)
+
+        elif message.get_value("data"):
             self.handle_simple_hello(message)
 
     def handle_simple_hello(self, message: Request):
         """This function handles a simple hello message. 
         It is intiated by the inbound message handler.
         """
-        message.set_context("hello")
-        message.set_action("client_message")
+        message.set_context("Hello")
+        message.set_action("ClientMessage")
+        message.set_format("pickled")
         self.subject_send_request(message, self.protocol)
 
     def handle_exception(self, exception: Exception):

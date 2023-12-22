@@ -2,7 +2,7 @@
 from typing import TYPE_CHECKING
 
 from digitalpy.core.main.controller import Controller
-from digitalpy.core.network.domain.network_client import NetworkClient
+from digitalpy.core.domain.domain.network_client import NetworkClient
 if TYPE_CHECKING:
     from digitalpy.core.digipy_configuration.configuration import Configuration
     from digitalpy.core.zmanager.action_mapper import ActionMapper
