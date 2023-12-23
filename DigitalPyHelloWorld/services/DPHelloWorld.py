@@ -1,9 +1,13 @@
 """ this is the main class for the hello world digitalpy application"""
 import os
 import pathlib
+from typing import TYPE_CHECKING
 from digitalpy.core.main.DigitalPy import DigitalPy
 from digitalpy.core.component_management.impl.component_registration_handler \
     import ComponentRegistrationHandler
+
+if TYPE_CHECKING:
+    from digitalpy.core.domain.domain.service_health import ServiceHealth
 
 
 class DPHelloWorld(DigitalPy):
@@ -27,8 +31,20 @@ class DPHelloWorld(DigitalPy):
             self.stop_service(service_id="hello_world.HelloService")
         elif command == "3":
             self.restart_service(service_id="hello_world.HelloService")
+        elif command == "4":
+            service_healths = self.get_all_service_health()
+            self.display_service_health(service_healths)
         else:
             print("Sorry, I don't understand that command.")
+
+    def display_service_health(self, service_healths: dict[str, 'ServiceHealth']):
+        """display the service healths in a nice format
+
+        Args:
+            service_healths (list): the service healths to display
+        """
+        for service, health in service_healths.items():
+            print(f"Service: {service}, Health: {health}")
 
     def register_components(self):
         # register hello world components
