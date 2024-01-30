@@ -4,6 +4,7 @@ It is a simple example of a DigitalPyService."""
 import time
 import traceback
 
+from digitalpy.core.zmanager.response import Response
 from digitalpy.core.parsing.formatter import Formatter
 from digitalpy.core.service_management.digitalpy_service import DigitalPyService
 from digitalpy.core.service_management.domain.service_status import ServiceStatus
@@ -32,12 +33,15 @@ class HelloService(DigitalPyService):
         """
         super().event_loop()
 
-        time.sleep(0.1)
         requests = self.network.service_connections()
         for request in requests:
-            print("received "+str(request.get_value("data")) +
-                  " from "+str(request.get_value("client").id))
             self.handle_inbound_message(request)
+
+    def handle_response(self, response: Response):
+        """used to handle a response. Should be overriden by inheriting classes"""
+        if self.network:
+            response.set_value("clients", response.get_value("recipients"))
+            self.network.send_response(response)
 
     def handle_inbound_message(self, message: Request):
         """This function is used to handle inbound messages from other services. 

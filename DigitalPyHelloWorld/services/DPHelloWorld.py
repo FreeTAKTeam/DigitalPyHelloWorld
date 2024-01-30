@@ -21,7 +21,7 @@ class DPHelloWorld(DigitalPy):
             self.stop()
         elif command == "1":
             # service_id = input("What is the id of the service you would like to start?: ")
-            self.start_service(service_id="hello_world.HelloService")
+            self.start_service(service_section_name="DigitalPyHelloWorld.HelloService")
         elif command == "2":
             # service_id = input("What is the id of the service you would like to stop?: ")
             self.stop_service(service_id="hello_world.HelloService")
