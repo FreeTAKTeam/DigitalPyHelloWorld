@@ -5,3 +5,4 @@ This a reference implementation of a digitalpy application.
 - HelloService
 ## Components
 - HelloComponent
+- health_component
