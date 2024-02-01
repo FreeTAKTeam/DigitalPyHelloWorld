@@ -10,6 +10,11 @@ class DPHelloWorld(DigitalPy):
     """ this is the main class for the hello world digitalpy application
     """
 
+    def __init__(self):
+        super().__init__()
+        self.configuration.add_configuration(
+            "DigitalPyHelloWorld/configuration/dp_hello_world_configuration.ini")
+
     def event_loop(self):
         """ this is the event loop for the hello world digitalpy application
         """
@@ -29,6 +34,10 @@ class DPHelloWorld(DigitalPy):
             self.restart_service(service_id="hello_world.HelloService")
         else:
             print("Sorry, I don't understand that command.")
+
+    def start_services(self):
+        super().start_services()
+        self.start_service("dpHelloWorld.api")
 
     def register_components(self):
         # register hello world components
