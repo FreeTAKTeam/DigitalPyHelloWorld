@@ -1,10 +1,13 @@
 """This module contains the HelloWorld class, which is a DefaultFacade that is used 
 to say hello to the world."""
+from components.health.controller.health_persistence_controller import HealthPersistenceController
 from digitalpy.core.component_management.impl.default_facade import DefaultFacade
 from digitalpy.core.zmanager.impl.async_action_mapper import AsyncActionMapper
 from digitalpy.core.zmanager.impl.default_action_mapper import DefaultActionMapper
 from digitalpy.core.zmanager.request import Request
 from digitalpy.core.zmanager.response import Response
+
+from .controller.health_management_controller import HealthManagementController
 
 from .configuration.health_constants import (
     ACTION_MAPPING_PATH,
@@ -18,7 +21,7 @@ from .configuration.health_constants import (
 from . import base
 
 
-class HelloWorld(DefaultFacade):
+class Health(DefaultFacade):
     """HelloComponent is a DefaultFacade that is used to say hello to the world. 
     It is a simple example of a DefaultFacade.
     """
@@ -53,8 +56,15 @@ class HelloWorld(DefaultFacade):
             # the path to the manifest file
             manifest_path=str(MANIFEST_PATH),
         )
+        self.persistence_controller = HealthPersistenceController(
+            request, response, sync_action_mapper, configuration)
+        self.health_controller = HealthManagementController(
+            request, response, sync_action_mapper, configuration)
 
     def initialize(self, request, response):
+        self.health_controller.initialize(request, response)
+        self.persistence_controller.initialize(request, response)
+
         return super().initialize(request, response)
 
     def execute(self, method=None):
@@ -72,7 +82,31 @@ class HelloWorld(DefaultFacade):
             self.logger.fatal(str(e))
 
     @DefaultFacade.public
-    def CreateHealth_post(self, *args, **kwargs):
+    def create_health_post(self, *args, **kwargs):
         """This method is used to receive messages sent by client.
         """
-        self.health_controller.CreateHealth_post(*args, **kwargs)
+        self.health_controller.create_health_post(*args, **kwargs)
+
+    @DefaultFacade.public
+    def delete_health_delete(self, *args, **kwargs):
+        """This method is used to receive messages sent by client.
+        """
+        self.health_controller.delete_health_delete(*args, **kwargs)
+
+    @DefaultFacade.public
+    def retrieve_health_get(self, *args, **kwargs):
+        """This method is used to receive messages sent by client.
+        """
+        self.health_controller.retrieve_health_get(*args, **kwargs)
+
+    @DefaultFacade.public
+    def update_health_put(self, *args, **kwargs):
+        """This method is used to receive messages sent by client.
+        """
+        self.health_controller.update_health_put(*args, **kwargs)
+
+    @DefaultFacade.public
+    def list_health_get(self, *args, **kwargs):
+        """This method is used to receive messages sent by client.
+        """
+        self.health_controller.list_health_get(*args, **kwargs)

@@ -72,13 +72,13 @@ class Health(Node):
         self._ID = ID
 
     @property
-    def SleepData(self) -> str:
+    def SleepData(self) -> int:
         """Sleep data represents the number of hours slept in the last 24 hours"""
         return self._SleepData
 
     @SleepData.setter
-    def SleepData(self, SleepData: str):
-        if not isinstance(SleepData, str):
+    def SleepData(self, SleepData: int):
+        if not isinstance(SleepData, int):
             raise TypeError("'SleepData' must be a integer")
         self._SleepData = SleepData
 

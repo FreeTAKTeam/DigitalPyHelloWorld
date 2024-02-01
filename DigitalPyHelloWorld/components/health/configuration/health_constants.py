@@ -27,4 +27,6 @@ CONFIGURATION_PATH_TEMPLATE = Template(
     f".{CONFIGURATION_FORMAT}"
 )
 
+DB_PATH = "sqlite:///" + str(CURRENT_COMPONENT_PATH / "persistence/health.db")
+
 HEALTH = "health"
