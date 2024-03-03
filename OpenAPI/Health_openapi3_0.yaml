@@ -1,0 +1,415 @@
+components:
+  schemas:
+    UserHealth:
+      properties:
+        $schema: http://json-schema.org/draft-04/schema#
+        definitions:
+          Health:
+            description: 'this class contains information regarding the current physical
+              status of a connected user, measured with sensors.
+
+              health metrics typically derived from a smartwatch or fitness sensors'
+            properties:
+              BloodyPressure:
+                description: 'Blood pressure represents a single instantaneous blood
+                  pressure reading as a string  with systolic pressure first a separator
+                  : and the diastolic pressure second 60:90'
+                maxItems: 1
+                minItems: 0
+                type: string
+              BodyTemperature:
+                description: Body temperature a single instantaneous body temperature
+                  measurement in Celsius
+                maxItems: 1
+                minItems: 0
+                type: integer
+              CaloriesBurned:
+                description: Calories burned in the last 24 hours
+                maxItems: 1
+                minItems: 0
+                type: integer
+              HeartRate:
+                description: Heart rate represents an instantaneous measurement of
+                  the heart rate in beats per minute.
+                maxItems: 1
+                minItems: 0
+                type: integer
+              SleepData:
+                description: Sleep duration as a datetime format
+                maxItems: 1
+                minItems: 0
+                type: string
+              StepsCount:
+                description: Number of steps taken in the last 24h
+                maxItems: 1
+                minItems: 0
+                type: integer
+              StressLevel:
+                description: Stress level as a string, there is not standard for it
+                  can be in %
+                maxItems: 1
+                minItems: 0
+                type: string
+              bodyOxygen:
+                description: "Blood oxygen level represents a single instantaneous\
+                  \ blood oxygen saturation reading in %. A healthy blood oxygen level\
+                  \ is 95\u2013100% . If the level falls below 90%, it is considered\
+                  \ low and called hypoxemia . Arterial blood oxygen levels below\
+                  \ 80% may compromise organ function"
+                maxItems: 1
+                minItems: 0
+                type: integer
+            type: object
+          Marti:
+            description: 'Messages sent through the TAK server require an additional
+              element to assist the server with properly routing your messages.  If
+              this element is not included, the server will interpret this as a message
+              to all recipients, and the message will be sent to everyone, and depending
+              upon the client software, this could mean a private message would be
+              displayed publicly.
+
+
+              the content of marti is an intag in XML'
+            properties:
+              dest:
+                items:
+                  $ref: '#/definitions/dest'
+                type: array
+            type: object
+          Precisionlocation:
+            description: some type of location?
+            properties:
+              altsrc:
+                description: TDB can be DTED0 or ???
+                maxItems: 1
+                minItems: 1
+                type: string
+              geopointsrc:
+                maxItems: 1
+                minItems: 1
+                type: string
+            type: object
+          color:
+            properties:
+              argb:
+                description: 'integer with a color
+
+                  e.g. 65536'
+                maxItems: 1
+                minItems: 1
+                type: integer
+            type: object
+          contact:
+            description: 'This is a Cursor On Target Class representing communications
+              parameters for contacting a friendly element for human-to-human communications.
+              The objective of this Class is to carry the essential information needed
+              to contact this entity by a variety of means.   Multiple ways of establishing
+              contact can be specified;
+
+              noThe attributes  callsign, phone, and email should be self-explanatory.  particular
+              mode of contact is required. Other attributes, freq, dsn, modulation,
+              and hostname, are also available.'
+            properties:
+              callsign:
+                description: The unit's voice call sign
+                maxItems: 1
+                minItems: 1
+                type: string
+            type: object
+          dest:
+            description: used to address the destination of an event
+            properties: {}
+            type: object
+          detail:
+            description: "An optional element used to hold CoT sub-schema. Detail\
+              \ has no special properties.\n<b>   Detail entities...</b>\n  The \"\
+              detail\" entity is intended to carry information that is   specific\
+              \ to smaller communities of producers and consumers and     require\
+              \ more intimate knowledge of the operating domain.  For example, mesurated\
+              \ \"target\" events may come from dramatically     different sources\
+              \ and need to propagate dramatically different     \"detail\" information.\
+              \  A close-air-support mission will augment     target details with\
+              \ initial point and callsign details to     facilitate coordination\
+              \ of weapon delivery.  In contrast, a mission planning system may augment\
+              \ planned targets with target     catalog information and weapon fuzing\
+              \ requirements.  Because the \"details\" portion of the event are of\
+              \ interest only to a subset of subscribers, that entity may be mentioned\
+              \ by reference     when the event is communicated.  This reduces the\
+              \ congestion when events are transmitted over bandwidth limited links\
+              \ and also     prevents the retransmission of static data elements."
+            properties:
+              Health:
+                $ref: '#/definitions/Health'
+                maxItems: 1
+                minItems: 0
+              Marti:
+                $ref: '#/definitions/Marti'
+                maxItems: 1
+                minItems: 0
+              Precisionlocation:
+                $ref: '#/definitions/Precisionlocation'
+                maxItems: 1
+                minItems: 0
+              color:
+                $ref: '#/definitions/color'
+                maxItems: 1
+                minItems: 0
+              contact:
+                $ref: '#/definitions/contact'
+                maxItems: 1
+                minItems: 0
+              usericon:
+                $ref: '#/definitions/usericon'
+                maxItems: 1
+                minItems: 0
+            type: object
+          point:
+            properties:
+              ce:
+                description: "Circular area around the point defined by lat and lon\
+                  \ fields in meters.  Although named ce, this field is intended to\
+                  \ define a circular area around the event point, not necessarily\
+                  \ an error (e.g. Describing a reservation area is not an \"error\"\
+                  ).  \n\nIf it is appropriate for the \"ce\" field to represent an\
+                  \ error value (e.g. event describes laser designated target), the\
+                  \ value will represent the one sigma point for a zero mean  normal\
+                  \ (Guassian) distribution."
+                maxItems: 1
+                minItems: 1
+                type: number
+              hae:
+                description: "Height above Ellipsoid based on WGS-84 ellipsoid (measured\
+                  \ in meters) \nHAE acronym for Height above Ellipsoid based on WGS-84\
+                  \ ellipsoid (measured in meters)."
+                maxItems: 1
+                minItems: 1
+                type: number
+              lat:
+                description: Latitude referred to the WGS 84 ellipsoid in degrees
+                maxItems: 1
+                minItems: 1
+                type: number
+              le:
+                description: 'Linear Error in meters associated with the HAE field.
+                  Although named le, this field is intended to define a height range
+                  about the event point, not necessarily an error. This field, along
+                  with the ce field allow for the definition of a cylindrical volume
+                  about the point. If it is appropriate for the "le" field to represent
+                  an error (e.g. event describes laser designated target), the value
+                  will represent the one sigma point for a zero mean normal (Guassian)
+                  distribution.
+
+                  A height range about the event point in meters associated with the
+                  HAE field. When used to represent error, the value represents the
+                  one sigma point for a zero mean normal (Gaussian) distribution.'
+                maxItems: 1
+                minItems: 1
+                type: number
+              lon:
+                description: Longitude referred to the WGS 84 in degrees
+                maxItems: 1
+                minItems: 1
+                type: number
+            type: object
+          usericon:
+            description: the image used to display the COt
+            properties:
+              iconsetpath:
+                description: "the path of the icon image used \nMIL 2525 STD\n<ul>\n\
+                  \t<li>COT_MAPPING_2525B/a-u/a-u-G</li>\n</ul>\nICON\n<ul>\n\t<li>34ae1613-9645-4222-a9d2-e5f243dea2865/Military/EA-6B.png</li>\n\
+                  \t<li>'f7f71666-8b28-4b57-9fbb-e38e61d33b79/Google/hiker.png'/</li>\n\
+                  </ul>\nin alternative for a spot \n<ul>\n\t<li>COT_MAPPING_SPOTMAP/b-m-p-s-m/-65536\
+                  \ </li>\n</ul>"
+                maxItems: 1
+                minItems: 1
+                type: string
+            type: object
+
+          description: "represents a TAK event: this class is instantiated with a standard\
+            \ set of values.\n  The opex field is intended to indicate that the event\
+            \ is part of a   live operation, an exercise, or a simulation.  For backward\
+            \ compatibility, absence of the opex indicates \"no statement\", which will\
+            \ be interpreted in   an installation specific manner.\n  \n  opex=\"o-&lt;name&gt;\"\
+            \ or \"e-&lt;nickname&gt;\"  or \"s-&lt;nickname&gt;\",\n  where \"-&lt;name&gt;\"\
+            \ is optional.  That is, it is permissible to   specify only \"o\", \"e\"\
+            , or \"s\" for the opex value.\n<ul>\n\t<li>  o = operations</li>\n\t<li>\
+            \  e = exercise</li>\n</ul>\n  s = simulation"
+          id: http://iec.ch/TC57/Health#
+          properties:
+            access:
+              description: Specifies access controls that should be applied to the event
+              maxItems: 1
+              minItems: 1
+              type: string
+            detail:
+              $ref: '#/definitions/detail'
+              maxItems: 1
+              minItems: 1
+            how:
+              description: Gives a hint about how the coordinates were generated.  It
+                is used specifically to relay a hint about the types of errors that
+                may be expected in the data and to weight the data in systems that fuse  multiple
+                inputs.
+              maxItems: 1
+              minItems: 1
+              type: string
+            opex:
+              description: "OPTIONAL: Specifies whether the event is part of a live\
+                \ operation, an exercise, or a simulation. \nThe access field is intended\
+                \ to indicates who has access to this  event. (e.g. unrestricted, nato,\
+                \ army, coalition...) \nIt is currently defined as a string, and is\
+                \ optional in V2.0.\t\nFuture version of the event schema will provide\
+                \ formal definition of this field."
+              maxItems: 1
+              minItems: 0
+              type: integer
+            point:
+              $ref: '#/definitions/point'
+              maxItems: 1
+              minItems: 1
+            qos:
+              description: 'OPTIONAL: Specifies a quality of service desired from applications
+                processing or routing the event'
+              maxItems: 1
+              minItems: 0
+              type: integer
+            stale:
+              description: 'The "stale" attribute defines the ending time of the event''s
+                validity interval. The start and stale fields together define an interval
+                in time.
+
+                It has the same format as time and start.
+
+                ending time when an event should no longer be considered valid l (with
+                respect to Zulu time in extended ISO 8601 format)
+
+                In protobuff is in milliseconds
+
+
+                the attribute is calculated as following
+
+                String stale = DateUtil.toCotTime(millis + 20L * 1000L);'
+              maxItems: 1
+              minItems: 1
+              type: integer
+            start:
+              description: "format - DTG\nThe \"start\" attribute defines the starting\
+                \ time of the event's validity interval. The start and stale fields\
+                \ together define an interval in time.\nIt has the same format as time\
+                \ and stale.\nstarting time of the event's validity interval (with respect\
+                \ to Zulu time in extended ISO 8601 format) \n. As different from the\
+                \ moment in which the element was generated\n\nin protobuff this is\
+                \ expressed in milliseconds"
+              maxItems: 1
+              minItems: 1
+              type: integer
+            time:
+              description: "time stamp with respect to Zulu time indicating when an\
+                \ event was generated in extended ISO 8601 format \n\nin ProtoBuff expressed\
+                \ is in milliseconds"
+              maxItems: 1
+              minItems: 1
+              type: integer
+            Eventtype:
+              description: "Event.type contains the Code for the Center on Target object.\""
+    
+              maxItems: 1
+              minItems: 1
+              type: string
+            uid:
+              description: "The \"uid\" attribute is a globally unique name for this\
+                \ specific piece of information.\nSeveral \"events\" may be associated\
+                \ with one UID, but in that case, the latest (ordered by timestamp),\
+                \ \noverwrites all previous events for that UID.\ncan have additional\
+                \ information attached.\n[EventTYPE].[MACHINESENDERID].Nichname.UniqueID\n\
+                e.g. -<i>ping </i>means that this event is a ping, \n<i>GeoChat </i>indicates\
+                \ a chat type structure.\nThe <b>UID</b> should be in the following\
+                \ format: GeoChat.&lt;sender uid&gt;.&lt;recipient callsign or name\
+                \ of the group&gt;.&lt;random string for uniqueness&gt;.  Diverging\
+                \ from this format should not cause significant issues; however, the\
+                \ UID is used as a fallback if other information cannot be parsed from\
+                \ the message, so issues may still be experienced.  If uid does not\
+                \ contain any \u201C.\u201D characters, the chat room will default to\
+                \ \u201CAll Chat Rooms\u201D.\nGeoChat.ANDROID-7C:91:22:E8:6E:4D.DIPPER.44bf77cd-289e-4ea4-8756-ce295de168ca"
+              maxItems: 1
+              minItems: 1
+              type: integer
+            version:
+              description: Schema version of this event instance (e.g. 2.0)
+              maxItems: 1
+              minItems: 1
+              type: integer
+          title: Event
+          type: object
+        type: object
+info:
+  title: User Health API
+  description: Maintains a list of health records.
+   This example API uses the custom extension `x-access-level` to specify the level of access for each endpoint. 
+    The `x-access-level` is used to determine the visibility and accessibility of an endpoint according to the following rules
+    Private - The endpoint is only accessible within the DP  component it is defined in. It is not exposed outside of its immediate module, mimicking the behavior of a private function in OO programming.
+    Protected - The endpoint is accessible by the component it belongs to and by DygitalPy Core components. This allows for controlled access, similar to protected methods in programming, where related components have access.
+    Package -  The endpoint is accessible by any component within the same DP application. This level allows for broader access.
+    Public - The endpoint is accessible through a public interface, making it available to any consumer of the API.
+  contact: 
+      name: FreeTAKTeam
+      url: https://github.com/FreeTAKTeam/DigtalPyHelloWorld
+      email: FreeTAKTeam@gmail.com
+  version: 1.2.0
+  x-UUID: "F7688A3F-B0DC-4DEC-9C57-5110380170D9"
+  x-RequiredAlphaVersion: 1.3
+  license:
+    name: EPL-2.0
+openapi: 3.0.1
+paths:
+  /userHealth:
+    summary: send a health object    
+    post:
+      operationId: PostUserHealth
+      x-access-level: "public"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserHealth'
+        required: true
+      responses:
+        '201':
+          description: User Health data created successfully
+      summary: Create User Health Data
+    put:
+      operationId: UpdateUserHealth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserHealth'
+        required: true
+      responses:
+        '200':
+          description: User Health data updated successfully
+      summary: Update User Health Data
+  /userHealth/{property}:
+    summary: retrieve a health object
+    x-access-level: "public"
+    get:
+      operationId: retrieveUserHealth
+      x-access-level: "public"
+      parameters:
+      - description: The health property to retrieve (e.g., heartRate, stepsCount)
+        in: path
+        name: property
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  value:
+                    type: string
+                type: object
+          description: Successfully retrieved the property data
+      summary: Get specific User Health Data
