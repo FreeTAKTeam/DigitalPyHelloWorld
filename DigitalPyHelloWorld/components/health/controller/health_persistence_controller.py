@@ -75,7 +75,7 @@ class HealthPersistenceController(Controller):
         db_health.StressLevel = health.StressLevel
         db_health.bodyOxygen = health.bodyOxygen
 
-        self.ses.add(health)
+        self.ses.add(db_health)
         self.ses.commit()
 
     def remove_health(self, health: Health, *args, **kwargs):
