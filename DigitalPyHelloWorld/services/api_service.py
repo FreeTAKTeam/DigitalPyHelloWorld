@@ -16,6 +16,7 @@ from digitalpy.core.zmanager.request import Request
 from digitalpy.core.main.impl.default_factory import DefaultFactory
 from digitalpy.core.telemetry.tracing_provider import TracingProvider
 from digitalpy.core.zmanager.response import Response
+from digitalpy.core.service_management.domain.service_description import ServiceDescription
 
 
 class ApiService(DigitalPyService):
@@ -27,11 +28,12 @@ class ApiService(DigitalPyService):
     def __init__(self, service_id: str, subject_address: str, subject_port: int,  # pylint: disable=useless-super-delegation
                  subject_protocol: str, integration_manager_address: str,
                  integration_manager_port: int, integration_manager_protocol: str,
-                 formatter: Formatter, network: NetworkSyncInterface, protocol: str):
+                 formatter: Formatter, network: NetworkSyncInterface, protocol: str,
+                 service_desc: ServiceDescription):
         super().__init__(
             service_id, subject_address, subject_port, subject_protocol,
             integration_manager_address, integration_manager_port, integration_manager_protocol,
-            formatter, network, protocol)
+            formatter, network, protocol, service_desc)
 
     def event_loop(self):
         """This is the main event loop for the HelloService. It is intiated by the service manager.
@@ -45,6 +47,8 @@ class ApiService(DigitalPyService):
         req.set_value("source_format", self.protocol)
         req.set_action("authenticate")
         client: 'NetworkClient' = req.get_value("client")
+        client.protocol = self.protocol
+        client.service_id = self.service_id
         req.set_value("user_id", str(client.get_oid()))
         self.subject_send_request(req, self.protocol)
 
@@ -104,6 +108,6 @@ class ApiService(DigitalPyService):
         self.initialize_controllers()
         self.initialize_connections(self.protocol)
 
-        self.network.intialize_network(host, port, self.endpoints)
+        self.network.intialize_network(host, port, self.endpoints, service_desc=self.service_desc)
         self.status = ServiceStatus.RUNNING
         self.execute_main_loop()
