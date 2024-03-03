@@ -1,0 +1,108 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://iec.ch/TC57/HealthClasses#",
+    "type": "object",
+    "properties":
+    {
+        "HealthClasses":
+        {
+            "type": "object",
+            "anyOf":
+            [
+                { "$ref": "#/definitions/Contact" }
+            ]
+        }
+    },
+    "definitions":
+    {
+        "Contact" : 
+        {
+            "type": "object",
+            "description" : "This is a Cursor On Target Class representing communications parameters for contacting a friendly element for human-to-human communications. The objective of this Class is to carry the essential information needed to contact this entity by a variety of means.   Multiple ways of establishing contact can be specified;\nnoThe attributes  callsign, phone, and email should be self-explanatory.  particular mode of contact is required. Other attributes, freq, dsn, modulation, and hostname, are also available.",
+            "properties":
+            {
+                "Health":
+                {
+                    "type" : "array",
+                    "items" : { "$ref":"#/definitions/Health" }
+                },
+                "callsign":
+                {
+                    "description" : "The unit's voice call sign",
+                    "type" : "string",
+                    "minItems" : 1,
+                    "maxItems" : 1
+                },
+                "dsn":
+                {
+                    "description" : "DSN number for this element (if applicable)",
+                    "type" : "string",
+                    "minItems" : 1,
+                    "maxItems" : 1
+                },
+                "email":
+                {
+                    "description" : "e-mail address for this element (if applicable)",
+                    "type" : "string",
+                    "minItems" : 1,
+                    "maxItems" : 1
+                },
+                "endpoint":
+                {
+                    "description" : "TBD",
+                    "type" : "string",
+                    "minItems" : 1,
+                    "maxItems" : 1
+                },
+                "freq":
+                {
+                    "description" : "The frequency (in MHz) on which the unit may be contacted via voice.",
+                    "type" : "number",
+                    "minItems" : 1,
+                    "maxItems" : 1
+                },
+                "hostname":
+                {
+                    "description" : "DNS-resolvable host name",
+                    "type" : "string",
+                    "minItems" : 1,
+                    "maxItems" : 1
+                },
+                "iconsetpath":
+                {
+                    "type" : "string",
+                    "minItems" : 1,
+                    "maxItems" : 1
+                },
+                "modulation":
+                {
+                    "description" : "Amplifies the radio frequency information provided.  Contains the modulation type for the communication.  (Coding tbd, should cover complex modulations such as SINCGARS hopping, csma, etc...) am|fm",
+                    "type" : "string",
+                    "minItems" : 1,
+                    "maxItems" : 1
+                },
+                "phone":
+                {
+                    "description" : "Phone number for this element (if applicable)",
+                    "type" : "string",
+                    "minItems" : 1,
+                    "maxItems" : 1
+                },
+                "version":
+                {
+                    "description" : "Version tag for this sub schema.  Necessary to ensure upward compatibility with future revisions.",
+                    "type" : "number",
+                    "minItems" : 1,
+                    "maxItems" : 1
+                },
+                "xmppUsername":
+                {
+                    "description" : "user name in the xmpp network.  A private, unique, and memorable \"petname\" or \"alias\" assigned by a contact to a user; represented in the 'name' attribute of the item associated with that user's JID in the contact's roster",
+                    "type" : "integer",
+                    "minItems" : 1,
+                    "maxItems" : 1
+                }
+            }
+        }
+    }
+}
