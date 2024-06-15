@@ -37,7 +37,7 @@ class DPHelloWorld(DigitalPy):
 
     def start_services(self):
         super().start_services()
-        self.start_service("dpHelloWorld.api")
+        # self.start_service("dpHelloWorld.api")
 
     def register_components(self):
         # register hello world components
